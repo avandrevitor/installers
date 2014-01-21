@@ -1,7 +1,7 @@
 VirtualBoxVagrantPuppet
 =======================
 
-Shell Script para Instalação e Configuração do Itens:
+Shell Script para Instalação e Configuração dos Itens:
 
 - Virtualbox 4.3
 - Vagrant 1.4.2
