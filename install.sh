@@ -30,13 +30,13 @@ sudo rm puppetlabs-release-precise.deb
 echo "=[ Iniciando Instalacao Vagrant Plugins ]================================================="
 
 #https://github.com/fgrehm/vagrant-cachier
-vagrant plugin install vagrant-cachier
+sudo vagrant plugin install vagrant-cachier
 	
 #https://github.com/mindreframer/vagrant-puppet-librarian
-vagrant plugin install vagrant-librarian-puppet
+sudo vagrant plugin install vagrant-librarian-puppet
 
 #https://github.com/smdahlen/vagrant-hostmanager
-vagrant plugin install vagrant-hostmanager
+sudo vagrant plugin install vagrant-hostmanager
 	
 vagrant --version
 
