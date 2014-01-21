@@ -3,6 +3,9 @@
 #Instalação
 sudo apt-get update
 sudo apt-get upgrade
+
+#Complementos
+sudo apt-get install linux-headers-$(uname -r)
 	
 #Virtualbox
 echo "=[ Iniciando Instalacao Virtualbox ]======================================================"
@@ -22,9 +25,6 @@ wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
 sudo dpkg -i puppetlabs-release-precise.deb
 sudo apt-get install puppet-common
 sudo rm puppetlabs-release-precise.deb
-
-#Complementos
-sudo apt-get install linux-headers-$(uname -r)
 
 #Plugins
 echo "=[ Iniciando Instalacao Vagrant Plugins ]================================================="
