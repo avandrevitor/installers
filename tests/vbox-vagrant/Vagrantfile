@@ -4,15 +4,23 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  
+
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote = true
+  end 
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.auto_detect = true
+  end 
+ 
   config.vm.hostname = "vbox-tests"
   config.vm.box = "precise32"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
   config.vm.network :public_network
   config.vm.provider :virtualbox do |vb|
-     vb.customize ["modifyvm", :id, "--memory", "256"]
+     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
 
-  config.vm.provision :shell, :path => "./basic.sh" , :privileged => true
   config.vm.provision :shell, :path => "../../installers/vbox-vagrant/install.sh", :privileged => true
 end
