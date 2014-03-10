@@ -3,8 +3,6 @@
 #
 #	Debian/Ubuntu Installer Puppet Agent 
 #
-#	reference http://www.anggrianto.com/blog/install-puppet-and-puppet-master-on-ubuntu/
-#
 ##############################################################################################
 
 # Root ? 
