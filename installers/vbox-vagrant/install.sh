@@ -7,7 +7,15 @@
 #
 ######################################################################
 
-sudo -i
+# Root ? 
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+# Change to use with Vagrant
+# sudo -i
+
 apt-get purge -y openjdk*
 apt-get update
 apt-get autoclean
