@@ -41,12 +41,10 @@ rm vagrant_1.4.3_*.deb
 vagrant --version
 
 #reference https://github.com/fgrehm/vagrant-cachier
-#vagrant plugin install vagrant-cachier
+vagrant plugin install vagrant-cachier
 #reference  https://github.com/smdahlen/vagrant-hostmanager
-#vagrant plugin install vagrant-hostmanager
+vagrant plugin install vagrant-hostmanager
 #reference https://github.com/dotless-de/vagrant-vbguest
-#vagrant plugin install vagrant-vbguest
-#vagrant plugin list 
 
 #Uninstall
 #sudo apt-get autoremove --purge virtualbox* vagrant
