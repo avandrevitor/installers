@@ -21,4 +21,3 @@ sed -i "s/error_reporting = -1/error_reporting = 30711/" /etc/php5/apache2/php.i
 
 /etc/init.d/apache2 restart
 
-exit

@@ -119,4 +119,3 @@ echo $MYSQL_CNF > /etc/mysql/my.cnf
 
 /etc/init.d/mysql restart
 
-exit

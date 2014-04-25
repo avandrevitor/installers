@@ -23,4 +23,3 @@ a2enmod rewrite
 
 /etc/init.d/apache2 restart
 
-exit

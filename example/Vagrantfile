@@ -2,10 +2,10 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
-VAGRANTBOX_IP = "192.168.56.101"
-VAGRANTBOX_HOSTNAME = "localhost.dev"
-VAGRANTBOX_PATH = "/var/www/"
+VAGRANTFILE_API_VERSION="2"
+VAGRANTBOX_IP="192.168.56.101"
+VAGRANTBOX_HOSTNAME="localhost.dev"
+VAGRANTBOX_PATH="/var/www/"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -45,9 +45,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.provision :shell, :path => "../installers/ubuntu-debian/update.sh"
-  config.vm.provision :shell, :path => "../installlers/java8/install.sh"
+  config.vm.provision :shell, :path => "../installers/java8/install.sh"
   config.vm.provision :shell, :path => "../installers/apache/httpd.sh"
-  config.vm.provision :shell, :path => "../installers/apache/vhost.sh", :args => VAGRANTBOX_HOSTNAME VAGRANTBOX_PATH
+  config.vm.provision :shell, :path => "../installers/apache/vhost.sh", :args => "localhost.dev /var/www"
   config.vm.provision :shell, :path => "../installers/php/install.sh"
   config.vm.provision :shell, :path => "../installers/php/composer.sh"
   config.vm.provision :shell, :path => "../installers/mysql/install.sh"

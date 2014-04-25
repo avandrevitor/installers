@@ -48,5 +48,3 @@ a2ensite $SERVERNAME
 echo "127.0.1.1		$SERVERNAME" >> /etc/hosts
 
 /etc/init.d/apache2 restart
-
-exit
