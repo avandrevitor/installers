@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+VAGRANTBOX_IP = "192.168.56.101"
+VAGRANTBOX_HOSTNAME = "localhost.dev"
+VAGRANTBOX_PATH = "/var/www/"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "precise32"
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+	config.cache.auto_detect = true
+  end
+
+  if Vagrant.has_plugin?("vagrant-hostmanager")
+	config.hostmanager.enabled = true
+	config.hostmanager.manage_host = true
+	config.hostmanager.ignore_private_ip = false
+	config.hostmanager.include_offline = true
+
+	config.vm.define VAGRANTBOX_HOSTNAME do |node|
+	    node.vm.hostname = VAGRANTBOX_HOSTNAME
+	    node.vm.network :private_network, ip: VAGRANTBOX_IP
+	    node.hostmanager.aliases = %w(example-box.localdomain example-box-alias)
+	end
+  else
+	config.vm.network :private_network, ip: VAGRANTBOX_IP
+  end
+
+  config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 3306, host: 3306
+  config.ssh.forward_agent = true
+
+  config.vm.synced_folder "./", "/var/www"
+  config.vm.synced_folder "./", "/home/vagrant"
+
+  config.vm.provider :virtualbox do |vb|
+	vb.customize ["modifyvm", :id, "--memory", "512"]
+	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+  
+  config.vm.provision :shell, :path => "../installers/ubuntu-debian/update.sh"
+  config.vm.provision :shell, :path => "../installlers/java8/install.sh"
+  config.vm.provision :shell, :path => "../installers/apache/httpd.sh"
+  config.vm.provision :shell, :path => "../installers/apache/vhost.sh", :args => VAGRANTBOX_HOSTNAME VAGRANTBOX_PATH
+  config.vm.provision :shell, :path => "../installers/php/install.sh"
+  config.vm.provision :shell, :path => "../installers/php/composer.sh"
+  config.vm.provision :shell, :path => "../installers/mysql/install.sh"
+  
+end
