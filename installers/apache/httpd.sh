@@ -21,5 +21,7 @@ dpkg -P apache2 apache2.2-common apache2-doc apache2-mpm-prefork apache2-utils m
 apt-get install -y apache2 apache2-utils apache2-mpm-prefork libapache2-mod-php5
 a2enmod rewrite
 
+echo "ServerName localhost" >> /etc/apache2/httpd.conf
+
 /etc/init.d/apache2 restart
 
