@@ -51,6 +51,6 @@ config.vm.provision :shell, :path => "./installers/installers/apache/vhost.sh", 
 config.vm.provision :shell, :path => "./installers/installers/php/install.sh"
 config.vm.provision :shell, :path => "./installers/installers/php/composer.sh"
 config.vm.provision :shell, :path => "./installers/installers/mysql/install.sh"
-config.vm.provision :shell, :inline => "cd #{VAGRANTBOX_PATH_PROJECT} composer update"  
+config.vm.provision :shell, :inline => "cd #{VAGRANTBOX_PATH_PROJECT}; composer update"  
 
 end
