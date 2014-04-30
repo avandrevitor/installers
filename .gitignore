@@ -12,7 +12,7 @@ nb-configuration.xml
 
 ### Vagrant ###
 .vagrant/
-
+.sudo_as_admin_successful
 
 ### Composer ###
 composer.phar

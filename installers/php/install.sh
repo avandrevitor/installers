@@ -10,6 +10,8 @@ sudo -i
 # PHP ===========================================================
 export DEBIAN_FRONTEND=noninteractive
 
+echo "deb http://ftp.br.debian.org/debian wheezy main contrib non-free" | tee -a /etc/apt/sources.list
+
 apt-get install -y php5 php5-cli php5-common php5-curl php5-gd php5-mysql php5-recode php5-gmp php5-xmlrpc php5-xsl php5-intl php5-mcrypt php5-suhosin php5-imagick libapache2-mod-php5
 
 sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 10M/" /etc/php5/apache2/php.ini
