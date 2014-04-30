@@ -13,8 +13,9 @@ export DEBIAN_FRONTEND=noninteractive
 SERVERNAME=$(echo $1 | tr "[:upper:]" "[:lower:]")
 DOCUMENT_ROOT=$(echo $2 | tr "[:upper:]" "[:lower:]")
 
-VHOST=<<EOF 
-<VirtualHost *:80>
+touch /etc/apache2/sites-avaiable/$SERVERNAME
+
+echo "<VirtualHost *:80>
 
 	ServerName $SERVERNAME
 	ServerAlias www.$SERVERNAME
@@ -33,14 +34,10 @@ VHOST=<<EOF
 
     </Directory>
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-</VirtualHost>
-EOF
-
-touch /etc/apache2/sites-available/$SERVERNAME
-echo $VHOST > /etc/apache2/sites-available/$SERVERNAME
+</VirtualHost>" >> /etc/apache2/sites-available/$SERVERNAME
 
 mkdir -p $DOCUMENT_ROOT
 a2ensite $SERVERNAME

@@ -5,7 +5,8 @@
 VAGRANTFILE_API_VERSION="2"
 VAGRANTBOX_IP="192.168.56.101"
 VAGRANTBOX_HOSTNAME="localhost.dev"
-VAGRANTBOX_PATH="/var/www/"
+VAGRANTBOX_PATH_VHOST="/var/www/site/web"
+VAGRANTBOX_PATH_PROJECT="/var/www/site"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -25,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.define VAGRANTBOX_HOSTNAME do |node|
 	    node.vm.hostname = VAGRANTBOX_HOSTNAME
 	    node.vm.network :private_network, ip: VAGRANTBOX_IP
-	    node.hostmanager.aliases = %w(example-box.localdomain example-box-alias)
+	    node.hostmanager.aliases = %w(VAGRANTBOX_HOSTNAME)
 	end
   else
 	config.vm.network :private_network, ip: VAGRANTBOX_IP
@@ -35,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 3306, host: 3306
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "./", "/var/www"
+  config.vm.synced_folder "./", "#{VAGRANTBOX_PATH_PROJECT}"
   config.vm.synced_folder "./", "/home/vagrant"
 
   config.vm.provider :virtualbox do |vb|
@@ -44,12 +45,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
   
-  config.vm.provision :shell, :path => "../installers/ubuntu-debian/update.sh"
-  config.vm.provision :shell, :path => "../installers/java8/install.sh"
-  config.vm.provision :shell, :path => "../installers/apache/httpd.sh"
-  config.vm.provision :shell, :path => "../installers/apache/vhost.sh", :args => "localhost.dev /var/www"
-  config.vm.provision :shell, :path => "../installers/php/install.sh"
-  config.vm.provision :shell, :path => "../installers/php/composer.sh"
-  config.vm.provision :shell, :path => "../installers/mysql/install.sh"
-  
+config.vm.provision :shell, :path => "./installers/installers/ubuntu-debian/update.sh"
+config.vm.provision :shell, :path => "./installers/installers/apache/httpd.sh"
+config.vm.provision :shell, :path => "./installers/installers/apache/vhost.sh", :args => "#{VAGRANTBOX_HOSTNAME} #{VAGRANTBOX_PATH_VHOST}"
+config.vm.provision :shell, :path => "./installers/installers/php/install.sh"
+config.vm.provision :shell, :path => "./installers/installers/php/composer.sh"
+config.vm.provision :shell, :path => "./installers/installers/mysql/install.sh"
+config.vm.provision :shell, :inline => "cd #{VAGRANTBOX_PATH_PROJECT} composer update"  
+
 end
