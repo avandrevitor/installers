@@ -13,9 +13,6 @@ nb-configuration.xml
 ### Vagrant ###
 .vagrant/
 .sudo_as_admin_successful
-.bash_history
-.cache/
-.viminfo
 
 ### Composer ###
 composer.phar
