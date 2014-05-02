@@ -13,9 +13,6 @@ export DEBIAN_FRONTEND=noninteractive
 SERVERNAME=$(echo $1 | tr "[:upper:]" "[:lower:]")
 DOCUMENT_ROOT=$(echo $2 | tr "[:upper:]" "[:lower:]")
 
-SERVERNAME_FILHE=date | md5sum
-touch /etc/apache2/sites-avaiable/$SERVERNAME_FILE
-
 echo "<VirtualHost *:80>
 
 	ServerName $SERVERNAME
@@ -38,10 +35,11 @@ echo "<VirtualHost *:80>
     ErrorLog $DOCUMENT_ROOT/error.log
     CustomLog $DOCUMENT_ROOT/access.log combined
 
-</VirtualHost>" >> /etc/apache2/sites-available/$SERVERNAME_FILE
+</VirtualHost>" > /etc/apache2/sites-available/mysite.conf
 
 mkdir -p $DOCUMENT_ROOT
-a2ensite $SERVERNAME
+
+a2ensite mysite
 
 echo "127.0.1.1		$SERVERNAME" >> /etc/hosts
 
