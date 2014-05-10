@@ -13,18 +13,16 @@ export DEBIAN_FRONTEND=noninteractive
 SERVERNAME=$(echo $1 | tr "[:upper:]" "[:lower:]")
 DOCUMENT_ROOT=$(echo $2 | tr "[:upper:]" "[:lower:]")
 
-touch /etc/apache2/sites-avaiable/$SERVERNAME
-
 echo "<VirtualHost *:80>
 
 	ServerName $SERVERNAME
 	ServerAlias www.$SERVERNAME
     
-	DocumentRoot "$DOCUMENT_ROOT"
+	DocumentRoot '"$DOCUMENT_ROOT"'
 
 	SetEnv APP_ENV dev
 
-    <Directory "$DOCUMENT_ROOT">
+    <Directory '"$DOCUMENT_ROOT"'>
     
 	Options Indexes FollowSymLinks Multiviews
 	DirectoryIndex index.php
@@ -34,13 +32,14 @@ echo "<VirtualHost *:80>
 
     </Directory>
 
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog $DOCUMENT_ROOT/error.log
+    CustomLog $DOCUMENT_ROOT/access.log combined
 
-</VirtualHost>" >> /etc/apache2/sites-available/$SERVERNAME
+</VirtualHost>" > /etc/apache2/sites-available/mysite.conf
 
 mkdir -p $DOCUMENT_ROOT
-a2ensite $SERVERNAME
+
+a2ensite mysite
 
 echo "127.0.1.1		$SERVERNAME" >> /etc/hosts
 
