@@ -16,9 +16,6 @@ fi
 # Change to use with Vagrant
 sudo -i
 
-apt-get purge -y openjdk*
-apt-get update
-apt-get autoclean
 export DEBIAN_FRONTEND=noninteractive
 
 # Virtualbox ========================================================
